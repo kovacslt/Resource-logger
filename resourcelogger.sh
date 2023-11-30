@@ -95,14 +95,16 @@ stop)
 esac
 
 else
+     OTHERINST=$(getotherinstance)
      Starttime=$(date +%Y%m%d-%T) 
      eval LOGFILE='~/'$Starttime$LOG
      IOST=$(which iostat)
      if [ -z "$IOST" ]; then
        echo "Az iostat nincs telepítve, erre szükség van. A program a sysstat csomag rész, amit telepítheted például így: sudo apt install sysstat"
      
-     else 
-     
+     elif [ $OTHERINST -gt 0 ]; then
+       echo "Már van egy futó példányom!"     
+     else
       echo "Logger elindult: "$Starttime > $LOGFILE
       echo "Adatgyűjtés elindult ide: "$LOGFILE
       #Mindenképp új logot csinál az indulás idejével a névben
