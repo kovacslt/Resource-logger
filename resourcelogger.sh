@@ -1,6 +1,6 @@
 #!/bin/bash
 LOG="reslog.txt"
-MAXENTRIES=5
+MAXENTRIES=5000
 
 writelogentry ()
 {
