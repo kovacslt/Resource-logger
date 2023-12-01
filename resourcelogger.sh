@@ -51,7 +51,7 @@ Comment=
 RunHook=0
 _EOF
   
-echo "Exec=$Myname donow" >> $DESKTOPFILE
+echo "Exec=$Myname" >> $DESKTOPFILE
 echo "Az indítóbejegyzés rám mutat: "$Myname
 echo "Elvileg kész az install"
 ;;
@@ -120,10 +120,10 @@ else
       do
     
        writelogentry
-       if [ $ENTRIES -lt $MAXENTRIES ]; then
-         ((ENTRIES=ENTRIES+1))
+       if [ $MAXENTRIES -gt 0 ] && [ $ENTRIES -gt $MAXENTRIES ]; then
+         sed -i -e '2,'"$LOGLINECNT"'d' "$LOGFILE"
        else
-        sed -i -e '2,'"$LOGLINECNT"'d' "$LOGFILE"
+        ((ENTRIES=ENTRIES+1))
        fi
        sleep 2
      
