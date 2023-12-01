@@ -1,6 +1,7 @@
 #!/bin/bash
 LOG="reslog.txt"
 MAXENTRIES=0
+# 0 -> a logfile mérete korlátlan
 
 writelogentry ()
 {
@@ -71,7 +72,7 @@ start)
   OTHERINST=$(getotherinstance)
  if [ $OTHERINST -eq 0 ]; then
  #ha nincs másik futó, indulhat egy
- echo $Myname
+ echo "Háttérben indul: "$Myname
  $Myname & 
  else 
    echo "Van már futó példányom, nem indítok újat!"
