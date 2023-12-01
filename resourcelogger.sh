@@ -33,9 +33,13 @@ getotherinstance ()
 Myname=$(readlink -f $0)
 MyPID=$$
 MyBASE=$(basename $Myname)
-
-eval LOGFILE=$LOG
- if [ -n "$1" ]; then
+IOST=$(which iostat)
+ 
+if [ -z "$IOST" ]; then
+       echo "Az iostat nincs telepítve, erre szükség van. A program a sysstat csomag része, amit telepíthetsz például így: sudo apt install sysstat"
+ 
+elif [ -n "$1" ]; then
+ 
  case $1 in
 
  install)
@@ -47,12 +51,16 @@ eval LOGFILE=$LOG
 [Desktop Entry]
 Type=Application
 Name=Resource logger
-NoDisplay=true
+NoDisplay=false
 Comment=
 RunHook=0
+X-GNOME-Autostart-enabled=true
+Hidden=false
 _EOF
   
 echo "Exec=$Myname" >> $DESKTOPFILE
+##Cinnamon hisztizhet, ha a.desktop nem végrehajtható jelölésű
+chmod +x $DESKTOPFILE
 echo "Az indítóbejegyzés rám mutat: "$Myname
 echo "Elvileg kész az install"
 ;;
@@ -99,11 +107,8 @@ else
      OTHERINST=$(getotherinstance)
      Starttime=$(date +%Y%m%d-%T) 
      eval LOGFILE='~/'$Starttime$LOG
-     IOST=$(which iostat)
-     if [ -z "$IOST" ]; then
-       echo "Az iostat nincs telepítve, erre szükség van. A program a sysstat csomag rész, amit telepítheted például így: sudo apt install sysstat"
      
-     elif [ $OTHERINST -gt 0 ]; then
+     if [ $OTHERINST -gt 0 ]; then
        echo "Már van egy futó példányom!"     
      else
       echo "Logger elindult: "$Starttime > $LOGFILE
