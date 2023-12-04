@@ -36,8 +36,8 @@ MyBASE=$(basename $Myname)
 IOST=$(which iostat)
  
 if [ -z "$IOST" ]; then
-       echo "Az iostat nincs telepítve, erre szükség van. A program a sysstat csomag része, amit telepíthetsz például így: sudo apt install sysstat"
- 
+       echo "Az iostat nincs telepítve, erre szükség van a működéshez. A program a sysstat csomag része, amit telepíthetsz például így: sudo apt install sysstat."
+       
 elif [ -n "$1" ]; then
  
  case $1 in
