@@ -19,7 +19,7 @@ getotherinstance ()
 
 {
   FOUND=0
-  declare LIST=($(pgrep -x $MyBASE))
+  declare LIST=($(pgrep -f "$MyBASE"))
   for A_PID in "${LIST[@]}"
   do
     if [ $A_PID != $MyPID ] && [ $A_PID != $BASHPID ]; then
